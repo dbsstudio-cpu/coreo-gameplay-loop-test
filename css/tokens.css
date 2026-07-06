@@ -1,0 +1,126 @@
+/* css/tokens.css */
+
+:root {
+  /* COREO 視覺核心色票 */
+  --coreo-bg-base: #1A1A1C;        /* 消光曜石黑，主背景 */
+  --coreo-bg-secondary: #242426;   /* 深石墨灰，次級操作區 */
+  --coreo-surface-raised: #2E2E30; /* 鈦金屬灰，面板 */
+  --coreo-text-primary: #F5F5F7;   /* 冷白，主要文字 */
+  --coreo-text-secondary: #8E8E93; /* 工程銀灰，輔助文字 */
+  --coreo-divider: #3A3A3C;        /* 極深冷灰，1px 分隔線 */
+  --coreo-glow-core: #E0F8FF;      /* 高透冰藍白，LIGHT CORE 能量光 */
+  --coreo-danger: #FF453A;         /* 法拉利紅，危險狀態 */
+  --coreo-success: #32D74B;        /* 克制安全綠，成功確認 */
+}
+
+/* 基礎設定 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none; /* 防止手機端誤選文字 */
+}
+
+body {
+  background-color: var(--coreo-bg-base);
+  color: var(--coreo-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-variant-numeric: tabular-nums; /* 數字等寬 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden; /* 骨架版先鎖定畫面，防意外捲動 */
+}
+
+/* 頂部資訊區 */
+#header {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--coreo-divider);
+  margin-bottom: 20px;
+}
+
+.level-text {
+  color: var(--coreo-text-secondary);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* 迷宮網格區 (7x7)：底盤本身是次級石墨灰面板 */
+#maze-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  background-color: var(--coreo-bg-secondary);
+  padding: 8px;
+  border-radius: 16px; /* 平滑圓角 */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); /* 1px 頂部高光邊 */
+}
+
+/* 路徑（可通行區）：內凹的暗溝，比底盤更沉，做出「切割凹槽」感 */
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: var(--coreo-bg-base);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 牆體：切割出的鈦金屬塊，比路徑亮、有明確邊界，一眼可辨識可走/不可走 */
+.cell.wall {
+  background-color: var(--coreo-surface-raised);
+  box-shadow: inset 0 1px 0 rgba(245, 245, 247, 0.06);
+  border: 1px solid var(--coreo-divider);
+  cursor: not-allowed;
+}
+
+/* 幾何圖形佔位（入口、出口） */
+.cell.start::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--coreo-text-secondary); /* 內收光圈代表入口 */
+}
+
+.cell.exit::after {
+  content: "";
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px dashed var(--coreo-success); /* 外展光環代表出口 */
+}
+
+/* 玩家核心：發光是稀缺資源，全畫面只有這一個元素會亮 */
+.player-core {
+  width: 14px;
+  height: 14px;
+  background-color: var(--coreo-glow-core);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(224, 248, 255, 0.5);
+}
+
+/* 過關提示：克制的淡入淡出文字，不使用瀏覽器原生 alert */
+#notice {
+  margin-top: 16px;
+  text-align: center;
+  color: var(--coreo-success);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  height: 18px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#notice.show {
+  opacity: 1;
+}
