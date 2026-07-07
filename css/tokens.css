@@ -1,4 +1,4 @@
-/* css/tokens.css */
+﻿/* css/tokens.css */
 :root {
   /* COREO Light Core Aurora 明亮座艙 - 真機對比補強 */
   --coreo-bg-base: #F4F6F8;
@@ -12,6 +12,7 @@
   --coreo-glow-core: #00BFFF;
   --coreo-glow-hot: #78E9FF;
   --coreo-credit: #C9A45D;
+  --coreo-credit-hot: #F0D89A;
   --coreo-danger: #FF3B30;
 }
 
@@ -80,8 +81,8 @@ body {
 }
 
 .hud-value.glow {
-  color: var(--coreo-glow-core);
-  text-shadow: 0 0 16px rgba(0, 191, 255, 0.72);
+  color: var(--coreo-credit);
+  text-shadow: 0 0 16px rgba(240, 216, 154, 0.76);
   transform: scale(1.2);
 }
 
@@ -103,8 +104,8 @@ body {
 #game-container {
   position: fixed;
   inset: 0;
-  perspective: 1120px;
-  perspective-origin: 50% 58%;
+  perspective: 1280px;
+  perspective-origin: 50% 54%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,8 +118,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 28%;
-  background: linear-gradient(to bottom, rgba(244, 246, 248, 0.96) 0%, rgba(244, 246, 248, 0.58) 52%, transparent 100%);
+  height: 18%;
+  background: linear-gradient(to bottom, rgba(244, 246, 248, 0.78) 0%, rgba(244, 246, 248, 0.28) 58%, transparent 100%);
   z-index: 500;
   pointer-events: none;
 }
@@ -137,7 +138,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: rotateX(43deg) translateZ(-130px);
+  transform: rotateX(40deg) translateZ(-165px);
   transition: transform 0.08s linear;
   will-change: transform;
 }
@@ -180,37 +181,74 @@ body {
   transform: rotateX(-90deg);
 }
 
+.cell.start {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.42) 0 24%, transparent 25%),
+    var(--coreo-path);
+}
+
+.cell.start::before,
 .cell.start::after {
-  content: 'START';
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
+  pointer-events: none;
+}
+
+.cell.start::before {
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(110, 115, 123, 0.36);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.82);
+  box-shadow: inset 0 0 10px rgba(110, 115, 123, 0.12);
+}
+
+.cell.start::after {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(110, 115, 123, 0.52);
   transform: translate(-50%, -50%);
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--coreo-text-secondary);
-  opacity: 0.75;
+  box-shadow: 0 0 8px rgba(110, 115, 123, 0.22);
 }
 
 .cell.exit {
   border: 2px solid var(--coreo-glow-core);
   box-shadow:
-    inset 0 0 20px rgba(0, 191, 255, 0.30),
-    0 0 20px rgba(0, 191, 255, 0.18);
-  background: rgba(120, 233, 255, 0.08);
+    inset 0 0 24px rgba(0, 191, 255, 0.34),
+    0 0 24px rgba(0, 191, 255, 0.24);
+  background: rgba(120, 233, 255, 0.10);
 }
 
-.cell.exit::before {
+.cell.exit::before,
+.cell.exit::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
+  pointer-events: none;
+}
+
+.cell.exit::before {
+  width: 35px;
+  height: 35px;
   border: 2px solid var(--coreo-glow-core);
-  border-radius: 7px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 16px rgba(0, 191, 255, 0.34);
   animation: pulse-exit 2s infinite;
+}
+
+.cell.exit::after {
+  width: 19px;
+  height: 19px;
+  border: 2px solid var(--coreo-credit-hot);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 6px -6px 14px rgba(240, 216, 154, 0.28);
 }
 
 /* =========================================
@@ -218,14 +256,14 @@ body {
 ========================================= */
 #player {
   position: absolute;
-  width: 22px;
-  height: 22px;
-  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, var(--coreo-glow-hot) 24%, var(--coreo-glow-core) 70%);
-  border-radius: 6px;
-  box-shadow:
-    0 0 24px rgba(0, 191, 255, 0.86),
-    0 0 48px rgba(0, 191, 255, 0.36),
-    inset 0 0 5px #FFFFFF;
+  width: 40px;
+  height: 40px;
+  background-image: url('../assets/player.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.72)) drop-shadow(0 0 22px rgba(0, 191, 255, 0.38));
   transform-style: preserve-3d;
   z-index: 100;
   transition: top 0.07s linear, left 0.07s linear, transform 0.1s ease;
@@ -235,11 +273,11 @@ body {
   position: absolute;
   width: 16px;
   height: 16px;
-  background: radial-gradient(circle, #FFFFFF 0%, var(--coreo-glow-hot) 34%, var(--coreo-glow-core) 74%);
+  background: radial-gradient(circle, #FFFFFF 0%, var(--coreo-credit-hot) 34%, var(--coreo-credit) 74%);
   border-radius: 50%;
   box-shadow:
-    0 0 16px var(--coreo-glow-core),
-    0 0 32px rgba(0, 191, 255, 0.55);
+    0 0 16px rgba(201, 164, 93, 0.86),
+    0 0 32px rgba(240, 216, 154, 0.48);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) translateZ(18px);
@@ -318,9 +356,9 @@ body {
 }
 
 @keyframes wall-bump {
-  0%, 100% { transform: translateZ(18px) rotate(0deg); }
-  25% { transform: translateZ(18px) rotate(5deg) scale(0.92); }
-  75% { transform: translateZ(18px) rotate(-5deg) scale(0.92); }
+  0%, 100% { transform: translate(-50%, -50%) translateZ(24px) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) translateZ(24px) rotate(5deg) scale(0.92); }
+  75% { transform: translate(-50%, -50%) translateZ(24px) rotate(-5deg) scale(0.92); }
 }
 
 #level-complete-overlay {
@@ -353,3 +391,4 @@ body {
   margin: 12px 0;
   box-shadow: 0 0 12px var(--coreo-glow-core);
 }
+

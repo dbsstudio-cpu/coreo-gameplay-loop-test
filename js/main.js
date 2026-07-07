@@ -1,4 +1,4 @@
-// js/main.js
+﻿// js/main.js
 window.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchmove', (event) => event.preventDefault(), { passive: false });
   document.addEventListener('gesturestart', (event) => event.preventDefault(), { passive: false });
@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
   world.appendChild(playerDiv);
 
   const CELL_SIZE = Render3D.CELL_SIZE;
-  const PLAYER_RADIUS = 9;
+  const PLAYER_RADIUS = 14;
   const SPEED = 4.2;
   let isGameOver = false;
 
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
     playerDiv.style.left = `${playerPos.x}px`;
     playerDiv.style.top = `${playerPos.y}px`;
     // 玩家本體稍微浮空，強化 3D 感
-    playerDiv.style.transform = `translate(-50%, -50%) translateZ(22px)`;
+    playerDiv.style.transform = `translate(-50%, -50%) translateZ(24px)`;
   }
 
   function checkPickups() {
@@ -90,3 +90,4 @@ window.addEventListener('DOMContentLoaded', () => {
   updatePlayerDOM();
   requestAnimationFrame(gameLoop);
 });
+

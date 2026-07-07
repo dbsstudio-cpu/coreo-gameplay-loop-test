@@ -1,4 +1,4 @@
-// js/fx.js
+﻿// js/fx.js
 const FX = {
   // 收集 Light Core：實體飛向 HUD
   collectCore: function(coreDOM) {
@@ -15,9 +15,9 @@ const FX = {
     particle.style.top = `${rect.top + rect.height/2}px`;
     particle.style.width = '12px';
     particle.style.height = '12px';
-    particle.style.backgroundColor = 'var(--coreo-glow-core)';
+    particle.style.backgroundColor = 'var(--coreo-credit-hot)';
     particle.style.borderRadius = '50%';
-    particle.style.boxShadow = '0 0 15px var(--coreo-glow-core)';
+    particle.style.boxShadow = '0 0 15px rgba(240, 216, 154, 0.85)';
     particle.style.zIndex = '9999';
     particle.style.pointerEvents = 'none';
     document.body.appendChild(particle);
@@ -66,3 +66,4 @@ const FX = {
     }, {once: true});
   }
 };
+

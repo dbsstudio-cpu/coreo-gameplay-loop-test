@@ -1,4 +1,4 @@
-# COREO - Stage 2 操控 × 鏡頭 × 深度 × 動態品質驗證 (Gym Prototype)
+﻿# COREO - Stage 2 操控 × 鏡頭 × 深度 × 動態品質驗證 (Gym Prototype)
 
 本專案為 COREO Stage 2 體感驗證房，用於 GitHub Pages 線上測試。
 
@@ -17,4 +17,7 @@
 |---|---|---|
 | v2.0 | 2026-07-07 | S 產出 Stage 2 體感驗證原型：3D 深度、鏡頭捲動、浮動搖桿、動態回饋動畫。 |
 | v2.1 | 2026-07-07 | CX 補上 PWA Shell（manifest.json、service-worker.js、icons、iOS meta tags），可加入主畫面。 |
-| v2.2（待處理） | — | 修正 3D 走廊擠壓在畫面上方的視覺比例問題（調整 rotateX / perspective / CELL_SIZE）。 |
+| v2.2 | 2026-07-07 | CX 修正真機三項問題：`html/body` 改 `position:fixed` 鎖死＋全域 touchmove/gesturestart 阻擋（修觸控飄移）、CELL_SIZE 40→58px＋鏡頭錨點重算（修畫面過小/路線過窄）、色彩對比全面加強（修配色單薄）。待 Sean 真機驗證。 |
+
+| v2.3 | 2026-07-07 | CX 更新主角圖檔、手機 icon、Light Core 金色分離、入口/出口幾何符號、鏡頭可視範圍延伸，供真機測試。 |
+

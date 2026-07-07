@@ -1,4 +1,4 @@
-// js/camera.js
+﻿// js/camera.js
 const CameraLogic = {
   worldDOM: null,
   currentY: 0,
@@ -16,12 +16,12 @@ const CameraLogic = {
 
     const worldHeight = this.worldDOM.offsetHeight || 0;
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-    const anchorY = viewportHeight * 0.66;
+    const anchorY = viewportHeight * 0.70;
     const unshiftedPlayerY = (viewportHeight * 0.5) - (worldHeight * 0.5) + playerWorldY;
 
     this.targetY = anchorY - unshiftedPlayerY;
     this.currentY += (this.targetY - this.currentY) * 0.16;
 
-    this.worldDOM.style.transform = `rotateX(43deg) translateZ(-130px) translateY(${this.currentY}px)`;
+    this.worldDOM.style.transform = `rotateX(40deg) translateZ(-165px) translateY(${this.currentY}px)`;
   }
 };

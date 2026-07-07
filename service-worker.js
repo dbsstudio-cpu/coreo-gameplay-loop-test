@@ -1,4 +1,4 @@
-const COREO_CACHE = 'coreo-pwa-shell-v2-stage2-fit-20260707';
+﻿const COREO_CACHE = 'coreo-pwa-shell-v23-stage2-visual-20260707';
 const COREO_ASSETS = [
   './',
   './index.html',
@@ -12,7 +12,8 @@ const COREO_ASSETS = [
   './js/main.js',
   './icons/icon-180.png',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  './assets/player.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -43,3 +44,4 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
   );
 });
+
