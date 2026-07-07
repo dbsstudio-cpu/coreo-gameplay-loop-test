@@ -3,7 +3,7 @@ const ControlLogic = {
   dx: 0, dy: 0,
   isActive: false,
   baseX: 0, baseY: 0,
-  maxRadius: 40,
+  maxRadius: 48,
 
   init: function() {
     const zone = document.getElementById('joystick-zone');
@@ -55,6 +55,7 @@ const ControlLogic = {
     zone.addEventListener('touchstart', onStart, {passive: false});
     zone.addEventListener('touchmove', onMove, {passive: false});
     zone.addEventListener('touchend', onEnd, {passive: false});
+    zone.addEventListener('touchcancel', onEnd, {passive: false});
     zone.addEventListener('mousedown', onStart);
     document.addEventListener('mousemove', onMove);
     document.addEventListener('mouseup', onEnd);

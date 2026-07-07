@@ -1,41 +1,59 @@
 /* css/tokens.css */
 :root {
-  /* COREO Light Core Aurora 明亮座艙 */
-  --coreo-bg-base: #F5F5F7;         /* 霧白，主背景 */
-  --coreo-bg-secondary: #E8E8ED;    /* 淺鈦灰，迷宮底盤/陰影面 */
-  --coreo-surface-raised: #FFFFFF;  /* 純白，迷宮牆體頂面 */
-  --coreo-path: #F0F0F5;            /* 淡灰，可走路徑 */
-  --coreo-text-primary: #1D1D1F;    /* 深鈦黑，主文字 */
-  --coreo-text-secondary: #86868B;  /* 冷灰，輔助文字 */
-  --coreo-glow-core: #00D1FF;       /* 冰藍核心，視覺焦點 */
-  --coreo-danger: #FF3B30;          /* 警戒紅 */
+  /* COREO Light Core Aurora 明亮座艙 - 真機對比補強 */
+  --coreo-bg-base: #F4F6F8;
+  --coreo-bg-secondary: #D9DEE5;
+  --coreo-surface-raised: #FFFFFF;
+  --coreo-path: #DDE4EC;
+  --coreo-path-edge: #B7C1CD;
+  --coreo-wall-side: #C3CBD5;
+  --coreo-text-primary: #1D1D1F;
+  --coreo-text-secondary: #6E737B;
+  --coreo-glow-core: #00BFFF;
+  --coreo-glow-hot: #78E9FF;
+  --coreo-credit: #C9A45D;
+  --coreo-danger: #FF3B30;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
 
-body, html {
-  width: 100%; height: 100%;
-  background-color: var(--coreo-bg-base);
+html,
+body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(0, 191, 255, 0.12), transparent 32%),
+    linear-gradient(180deg, #FAFBFC 0%, var(--coreo-bg-base) 42%, #E8EDF2 100%);
   color: var(--coreo-text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-variant-numeric: tabular-nums;
   overflow: hidden;
-  touch-action: none; /* 防止 Safari 拖動 */
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+body {
+  -webkit-overflow-scrolling: auto;
 }
 
 /* =========================================
    HUD (極簡化，專注 Light Core 收集)
 ========================================= */
 #hud {
-  position: absolute;
-  top: env(safe-area-inset-top, 20px);
-  left: 20px; right: 20px;
+  position: fixed;
+  top: max(env(safe-area-inset-top), 16px);
+  left: 20px;
+  right: 20px;
   display: flex;
   justify-content: space-between;
   z-index: 1000;
@@ -43,50 +61,85 @@ body, html {
 }
 
 .hud-group {
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
 .hud-label {
-  font-size: 10px; color: var(--coreo-text-secondary); letter-spacing: 1px; margin-bottom: 2px;
+  font-size: 10px;
+  color: var(--coreo-text-secondary);
+  letter-spacing: 1px;
+  margin-bottom: 2px;
 }
+
 .hud-value {
-  font-size: 20px; font-weight: 600; color: var(--coreo-text-primary);
+  font-size: 20px;
+  font-weight: 650;
+  color: var(--coreo-text-primary);
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .hud-value.glow {
   color: var(--coreo-glow-core);
-  text-shadow: 0 0 12px rgba(0, 209, 255, 0.6);
+  text-shadow: 0 0 16px rgba(0, 191, 255, 0.72);
   transform: scale(1.2);
+}
+
+#version-tag {
+  position: fixed;
+  bottom: max(env(safe-area-inset-bottom), 8px);
+  left: 8px;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--coreo-text-secondary);
+  opacity: 0.5;
+  z-index: 1000;
+  pointer-events: none;
 }
 
 /* =========================================
    3D 視圖與深度渲染
 ========================================= */
 #game-container {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  perspective: 800px; /* CSS 3D 透視點 */
-  display: flex; align-items: center; justify-content: center;
+  position: fixed;
+  inset: 0;
+  perspective: 1120px;
+  perspective-origin: 50% 58%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
 }
 
-/* 霧氣漸層 (營造縱深，遠處淡出) */
 #fog-overlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 40%;
-  background: linear-gradient(to bottom, var(--coreo-bg-base) 10%, transparent 100%);
-  z-index: 500; pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 28%;
+  background: linear-gradient(to bottom, rgba(244, 246, 248, 0.96) 0%, rgba(244, 246, 248, 0.58) 52%, transparent 100%);
+  z-index: 500;
+  pointer-events: none;
 }
 
 #camera-rig {
   transform-style: preserve-3d;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   position: absolute;
+  overflow: hidden;
+  touch-action: none;
 }
 
 #world {
   transform-style: preserve-3d;
   position: absolute;
-  /* 預設視角：往前看、帶點俯角 */
-  transform: rotateX(55deg) translateZ(-50px);
-  transition: transform 0.1s linear; /* 鏡頭跟隨的平滑過渡 */
-  left: 50%; top: 50%;
+  left: 50%;
+  top: 50%;
+  transform: rotateX(43deg) translateZ(-130px);
+  transition: transform 0.08s linear;
+  will-change: transform;
 }
 
 /* =========================================
@@ -94,48 +147,69 @@ body, html {
 ========================================= */
 .cell {
   position: absolute;
-  width: 40px; height: 40px;
+  width: 58px;
+  height: 58px;
   transform-style: preserve-3d;
 }
 
 .cell.path {
   background-color: var(--coreo-path);
-  box-shadow: inset 1px 1px 4px rgba(0,0,0,0.03);
+  box-shadow:
+    inset 0 0 0 1px rgba(183, 193, 205, 0.72),
+    inset 0 3px 8px rgba(74, 85, 101, 0.10);
 }
 
-/* 凸起的牆體 */
 .cell.wall {
-  background-color: var(--coreo-surface-raised);
-  transform: translateZ(16px); /* 抬高 */
-  box-shadow: 0 0 2px rgba(0,0,0,0.05);
+  background: linear-gradient(145deg, #FFFFFF 0%, #EEF2F6 100%);
+  transform: translateZ(22px);
+  box-shadow:
+    0 12px 22px rgba(60, 75, 92, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 1px rgba(183, 193, 205, 0.58);
 }
 
-/* 牆體的南側面 (產生 3D 厚度錯覺) */
 .cell.wall::after {
-  content: ''; position: absolute;
-  bottom: -16px; left: 0;
-  width: 100%; height: 16px;
-  background-color: var(--coreo-bg-secondary);
+  content: '';
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  background: linear-gradient(180deg, var(--coreo-wall-side), #AEB8C4);
   transform-origin: top;
-  transform: rotateX(-90deg); /* 往下折 90 度 */
+  transform: rotateX(-90deg);
 }
 
-/* 出入口 */
 .cell.start::after {
-  content: 'START'; position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-size: 8px; color: var(--coreo-text-secondary); opacity: 0.5;
+  content: 'START';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--coreo-text-secondary);
+  opacity: 0.75;
 }
+
 .cell.exit {
-  border: 1px solid var(--coreo-glow-core);
-  box-shadow: inset 0 0 15px rgba(0, 209, 255, 0.2);
-  background: transparent;
+  border: 2px solid var(--coreo-glow-core);
+  box-shadow:
+    inset 0 0 20px rgba(0, 191, 255, 0.30),
+    0 0 20px rgba(0, 191, 255, 0.18);
+  background: rgba(120, 233, 255, 0.08);
 }
+
 .cell.exit::before {
-  content: ''; position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 20px; height: 20px;
-  border: 2px solid var(--coreo-glow-core); border-radius: 4px;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--coreo-glow-core);
+  border-radius: 7px;
   animation: pulse-exit 2s infinite;
 }
 
@@ -143,22 +217,32 @@ body, html {
    動態物件 (Player & Light Core)
 ========================================= */
 #player {
-  position: absolute; width: 16px; height: 16px;
-  background-color: var(--coreo-glow-core);
-  border-radius: 4px;
-  box-shadow: 0 0 15px rgba(0, 209, 255, 0.8), inset 0 0 4px #FFF;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, var(--coreo-glow-hot) 24%, var(--coreo-glow-core) 70%);
+  border-radius: 6px;
+  box-shadow:
+    0 0 24px rgba(0, 191, 255, 0.86),
+    0 0 48px rgba(0, 191, 255, 0.36),
+    inset 0 0 5px #FFFFFF;
   transform-style: preserve-3d;
   z-index: 100;
-  /* 平滑慣性位移 (消除遊戲感) */
-  transition: top 0.08s linear, left 0.08s linear, transform 0.1s ease;
+  transition: top 0.07s linear, left 0.07s linear, transform 0.1s ease;
 }
 
 .light-core-item {
-  position: absolute; width: 10px; height: 10px;
-  background-color: #FFF; border-radius: 50%;
-  box-shadow: 0 0 12px var(--coreo-glow-core);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) translateZ(10px);
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, #FFFFFF 0%, var(--coreo-glow-hot) 34%, var(--coreo-glow-core) 74%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 16px var(--coreo-glow-core),
+    0 0 32px rgba(0, 191, 255, 0.55);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(18px);
   animation: float-core 2s ease-in-out infinite;
 }
 
@@ -166,70 +250,106 @@ body, html {
    Floating Thumb Control (高級透明感)
 ========================================= */
 #joystick-zone {
-  position: absolute; bottom: 0; left: 0; width: 100%; height: 45%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 42%;
   z-index: 2000;
+  touch-action: none;
 }
+
 .joystick-base {
-  position: absolute; width: 120px; height: 120px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  border: 1px solid rgba(0, 191, 255, 0.24);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0; transition: opacity 0.2s ease;
+  opacity: 0;
+  transition: opacity 0.18s ease;
   pointer-events: none;
+  box-shadow: 0 16px 36px rgba(60, 75, 92, 0.13);
 }
+
 .joystick-base.active { opacity: 1; }
+
 .joystick-knob {
-  position: absolute; width: 40px; height: 40px;
+  position: absolute;
+  width: 44px;
+  height: 44px;
   background-color: var(--coreo-surface-raised);
-  border-radius: 50%; top: 50%; left: 50%;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,209,255,0.2);
+  box-shadow: 0 5px 15px rgba(60, 75, 92, 0.18), inset 0 0 0 1px rgba(0, 191, 255, 0.25);
 }
+
 .joystick-knob::after {
-  content: ''; position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 8px; height: 8px;
-  background-color: var(--coreo-glow-core); border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9px;
+  height: 9px;
+  background-color: var(--coreo-glow-core);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.75);
 }
 
-/* =========================================
-   FX & Animations
-========================================= */
 @keyframes float-core {
-  0%, 100% { transform: translate(-50%, -50%) translateZ(8px); }
-  50% { transform: translate(-50%, -50%) translateZ(16px); }
-}
-@keyframes pulse-exit {
-  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
-  100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  0%, 100% { transform: translate(-50%, -50%) translateZ(14px); }
+  50% { transform: translate(-50%, -50%) translateZ(26px); }
 }
 
-/* 撞牆震動 */
+@keyframes pulse-exit {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.85; }
+  50% { transform: translate(-50%, -50%) scale(1.18); opacity: 0.22; }
+  100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.85; }
+}
+
 .shake {
   animation: wall-bump 0.2s cubic-bezier(.36,.07,.19,.97) both;
 }
+
 @keyframes wall-bump {
-  0%, 100% { transform: translateZ(10px) rotate(0deg); }
-  25% { transform: translateZ(10px) rotate(5deg) scale(0.9); }
-  75% { transform: translateZ(10px) rotate(-5deg) scale(0.9); }
+  0%, 100% { transform: translateZ(18px) rotate(0deg); }
+  25% { transform: translateZ(18px) rotate(5deg) scale(0.92); }
+  75% { transform: translateZ(18px) rotate(-5deg) scale(0.92); }
 }
 
-/* 過關收束動畫 */
 #level-complete-overlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: rgba(245, 245, 247, 0.9);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 3000; opacity: 0; pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(244, 246, 248, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.5s ease;
 }
+
 #level-complete-overlay.show { opacity: 1; pointer-events: auto; }
+
 .lc-title {
-  font-size: 24px; font-weight: 700; color: var(--coreo-text-primary); letter-spacing: 4px;
+  font-size: 24px;
+  font-weight: 750;
+  color: var(--coreo-text-primary);
+  letter-spacing: 4px;
 }
+
 .lc-line {
-  width: 40px; height: 2px; background: var(--coreo-glow-core); margin: 12px 0;
-  box-shadow: 0 0 10px var(--coreo-glow-core);
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--coreo-glow-core), var(--coreo-credit));
+  margin: 12px 0;
+  box-shadow: 0 0 12px var(--coreo-glow-core);
 }

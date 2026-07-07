@@ -1,12 +1,11 @@
 // js/render3d.js
 const Render3D = {
-  CELL_SIZE: 40,
+  CELL_SIZE: 58,
 
   buildWorld: function(mazeData) {
     const world = document.getElementById('world');
     world.innerHTML = ''; // 清空
 
-    // 根據迷宮大小設定世界基準點 (置中)
     const width = mazeData[0].length * this.CELL_SIZE;
     const height = mazeData.length * this.CELL_SIZE;
     world.style.width = `${width}px`;
@@ -29,7 +28,7 @@ const Render3D = {
 
         if (type === 2) {
           cell.classList.add('start');
-          startPos = { x: x * this.CELL_SIZE + this.CELL_SIZE/2, y: y * this.CELL_SIZE + this.CELL_SIZE/2 };
+          startPos = { x: x * this.CELL_SIZE + this.CELL_SIZE / 2, y: y * this.CELL_SIZE + this.CELL_SIZE / 2 };
         } else if (type === 3) {
           cell.classList.add('exit');
         } else if (type === 4) {

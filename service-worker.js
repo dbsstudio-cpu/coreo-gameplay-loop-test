@@ -1,4 +1,4 @@
-const COREO_CACHE = 'coreo-pwa-shell-v1-20260707';
+const COREO_CACHE = 'coreo-pwa-shell-v2-stage2-fit-20260707';
 const COREO_ASSETS = [
   './',
   './index.html',
