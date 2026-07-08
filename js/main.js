@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
   world.appendChild(playerDiv);
 
   const CELL_SIZE = Render3D.CELL_SIZE;
-  const PLAYER_RADIUS = 14;
+  const PLAYER_RADIUS = 18; // 從 14 提升到 18，配合 48px 的實體尺寸，保持順滑移動
   const SPEED = 4.2;
   let isGameOver = false;
 

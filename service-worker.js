@@ -1,4 +1,4 @@
-﻿const COREO_CACHE = 'coreo-pwa-shell-v23-stage2-visual-20260707';
+﻿const COREO_CACHE = 'coreo-pwa-shell-v24-continuous-slot-20260708';
 const COREO_ASSETS = [
   './',
   './index.html',
@@ -44,4 +44,5 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
   );
 });
+
 
