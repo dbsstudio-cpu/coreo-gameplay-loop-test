@@ -16,9 +16,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const CELL_SIZE = Render3D.CELL_SIZE;
   const enemyDiv = document.createElement('div');
   enemyDiv.id = 'enemy';
-  // 迷宮已退回 7 格寬，反派固定站在橫向大廳 D（col5, row10）內，避免超出地圖邊界
-  enemyDiv.style.left = `${5 * CELL_SIZE + CELL_SIZE / 2}px`;
-  enemyDiv.style.top = `${10 * CELL_SIZE + CELL_SIZE / 2}px`;
+  // 迷宮已退回 7 格寬，反派固定站在 v2.7 單一路線中段（col2, row11）有效路徑上
+  enemyDiv.style.left = `${2 * CELL_SIZE + CELL_SIZE / 2}px`;
+  enemyDiv.style.top = `${11 * CELL_SIZE + CELL_SIZE / 2}px`;
   enemyDiv.style.transform = `translate(-50%, -50%) translateZ(24px)`;
   world.appendChild(enemyDiv);
   const PLAYER_RADIUS = 24; // 從 18 提升到 24，配合 62px 的實體尺寸，保持順滑移動
@@ -97,5 +97,7 @@ window.addEventListener('DOMContentLoaded', () => {
   updatePlayerDOM();
   requestAnimationFrame(gameLoop);
 });
+
+
 
 

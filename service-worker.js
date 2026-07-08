@@ -1,4 +1,4 @@
-﻿const COREO_CACHE = 'coreo-pwa-shell-v26-contrast-energy-tiers-20260708';
+﻿const COREO_CACHE = 'coreo-pwa-shell-v27-pipeline-visual-test-20260708';
 const COREO_ASSETS = [
   './',
   './index.html',
@@ -45,6 +45,7 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
   );
 });
+
 
 
 

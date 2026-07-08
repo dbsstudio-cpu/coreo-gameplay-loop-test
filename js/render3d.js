@@ -1,4 +1,4 @@
-// js/render3d.js
+﻿// js/render3d.js
 const Render3D = {
   CELL_SIZE: 58,
 
@@ -16,36 +16,10 @@ const Render3D = {
     world.style.marginTop = `-${height / 2}px`;
 
     let startPos = { x: 0, y: 0 };
-    const isPath = (cx, cy) => (cy >= 0 && cy < h && cx >= 0 && cx < w && mazeData[cy][cx] > 0);
 
-    // ==========================================
-    // 1. 路徑處理 (找出轉角，並將直線合併成槽)
-    // ==========================================
+    // 1. 路徑處理：全面貪婪合併，移除特殊轉角標記
     let visitedPaths = Array(h).fill(0).map(() => Array(w).fill(false));
 
-    // 先獨立標記並建立所有「轉角/岔路」
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        if (mazeData[y][x] > 0) {
-          const N = isPath(x, y - 1);
-          const S = isPath(x, y + 1);
-          const W = isPath(x - 1, y);
-          const E = isPath(x + 1, y);
-          const numNeighbors = N + S + W + E;
-
-          let isCorner = false;
-          if (numNeighbors > 2) isCorner = true; // 岔路口
-          else if (numNeighbors === 2 && ((N && W) || (N && E) || (S && W) || (S && E))) isCorner = true; // L型轉角
-
-          if (isCorner) {
-            this.createBlock(world, x, y, 1, 1, 'path corner', y / h);
-            visitedPaths[y][x] = true;
-          }
-        }
-      }
-    }
-
-    // 將剩下的直線路徑進行貪婪合併 (Greedy Mesh)
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
         if (mazeData[y][x] > 0 && !visitedPaths[y][x]) {
@@ -58,7 +32,8 @@ const Render3D = {
           while (y + blockH < h && canExpandDown) {
             for (let tx = x; tx < x + blockW; tx++) {
               if (mazeData[y + blockH][tx] <= 0 || visitedPaths[y + blockH][tx]) {
-                canExpandDown = false; break;
+                canExpandDown = false;
+                break;
               }
             }
             if (canExpandDown) blockH++;
@@ -69,14 +44,12 @@ const Render3D = {
               visitedPaths[ty][tx] = true;
             }
           }
-          this.createBlock(world, x, y, blockW, blockH, 'path', y / h);
+          this.createBlock(world, x, y, blockW, blockH, 'path');
         }
       }
     }
 
-    // ==========================================
-    // 2. 牆體處理 (全面貪婪合併成大型實體區塊)
-    // ==========================================
+    // 2. 牆體處理：全面貪婪合併成大型實體區塊
     let visitedWalls = Array(h).fill(0).map(() => Array(w).fill(false));
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
@@ -90,7 +63,8 @@ const Render3D = {
           while (y + blockH < h && canExpandDown) {
             for (let tx = x; tx < x + blockW; tx++) {
               if (mazeData[y + blockH][tx] !== 0 || visitedWalls[y + blockH][tx]) {
-                canExpandDown = false; break;
+                canExpandDown = false;
+                break;
               }
             }
             if (canExpandDown) blockH++;
@@ -101,16 +75,12 @@ const Render3D = {
               visitedWalls[ty][tx] = true;
             }
           }
-          // 牆體深度以底部為準
-          const depthY = (y + blockH - 1) / h;
-          this.createBlock(world, x, y, blockW, blockH, 'wall', depthY);
+          this.createBlock(world, x, y, blockW, blockH, 'wall');
         }
       }
     }
 
-    // ==========================================
-    // 3. 獨立功能實體疊加 (起點/出口/核心)
-    // ==========================================
+    // 3. 獨立功能實體疊加：起點、出口、分級能量
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
         const type = mazeData[y][x];
@@ -121,7 +91,6 @@ const Render3D = {
           this.createEntity(world, x, y, 'exit');
         } else if (type === 4 || type === 5) {
           const core = document.createElement('div');
-          // 依據類型賦予不同分級造型：4=一般能量、5=強化能量
           core.className = type === 4 ? 'light-core-item standard' : 'light-core-item upgraded';
           core.id = `core-${x}-${y}`;
           core.style.left = `${x * this.CELL_SIZE + this.CELL_SIZE / 2}px`;
@@ -134,20 +103,16 @@ const Render3D = {
     return startPos;
   },
 
-  // 創建背景/結構區塊
-  createBlock: function(world, x, y, w, h, classes, yRatio) {
+  createBlock: function(world, x, y, w, h, classes) {
     const block = document.createElement('div');
     block.className = `cell ${classes}`;
     block.style.left = `${x * this.CELL_SIZE}px`;
     block.style.top = `${y * this.CELL_SIZE}px`;
     block.style.width = `${w * this.CELL_SIZE}px`;
     block.style.height = `${h * this.CELL_SIZE}px`;
-    // 傳入深度參數供 CSS 取用
-    block.style.setProperty('--y-ratio', yRatio.toFixed(3));
     world.appendChild(block);
   },
 
-  // 創建無實體碰撞的視覺標記 (如起點環、出口環)
   createEntity: function(world, x, y, typeClass) {
     const entity = document.createElement('div');
     entity.className = `cell entity ${typeClass}`;
