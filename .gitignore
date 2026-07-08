@@ -1,5 +1,4 @@
+﻿.vercel/
 .env.local
-.vercel/
-??/
-*.stage.*.html
-
+node_modules/
+*.log

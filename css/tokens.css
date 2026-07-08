@@ -1,24 +1,24 @@
 ﻿/* css/tokens.css */
 :root {
-  /* COREO Light Core Aurora 明亮座艙 - 真機對比補強 */
-  --coreo-bg-base: #F4F6F8;
-  --coreo-bg-secondary: #D9DEE5;
+  --coreo-bg-base: #F5F5F7;
+  --coreo-bg-secondary: #E8E8ED;
   --coreo-surface-raised: #FFFFFF;
-  --coreo-path: #C7D9E3;
-  --coreo-path-edge: #A0B4C3;
-  --coreo-wall-side: #C3CBD5;
+  --coreo-path: #E8E8ED;
+  --coreo-path-edge: #C8C8D0;
+  --coreo-wall-side: #D2D2D8;
   --coreo-text-primary: #1D1D1F;
-  --coreo-text-secondary: #6E737B;
-  --coreo-glow-core: #00BFFF;
-  --coreo-glow-hot: #78E9FF;
-  --coreo-credit: #C9A45D;
-  --coreo-credit-hot: #F0D89A;
+  --coreo-text-secondary: #6E6E73;
+  --coreo-glow-core: #00D1FF;
+  --coreo-glow-hot: #82F1FF;
+  --coreo-credit: #E5C158;
+  --coreo-credit-hot: #FFF0A6;
   --coreo-danger: #FF3B30;
-  --coreo-enemy-red: #FF2D2D;
-  --coreo-enemy-red-orange: #FF5A36;
+  --coreo-enemy-red: #FF3B30;
+  --coreo-enemy-red-orange: #FF6A4A;
   --coreo-danger-glow: #FFD2C7;
-  --coreo-threat-dark: #8A1020;
+  --coreo-threat-dark: #A61E18;
   --coreo-special-violet: #6C5CE7;
+  --coreo-success: #30D158;
 }
 
 * {
@@ -38,8 +38,8 @@ body {
   height: 100%;
   min-height: 100%;
   background:
-    radial-gradient(circle at 50% 18%, rgba(0, 191, 255, 0.12), transparent 32%),
-    linear-gradient(180deg, #FAFBFC 0%, var(--coreo-bg-base) 42%, #E8EDF2 100%);
+    radial-gradient(circle at 50% 16%, rgba(0, 209, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, #FFFFFF 0%, var(--coreo-bg-base) 44%, #ECECF1 100%);
   color: var(--coreo-text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-variant-numeric: tabular-nums;
@@ -149,7 +149,7 @@ body {
 }
 
 /* =========================================
-   v2.7 視覺質感升級：連續導流槽與圓角切削
+   Bright Premium v2.8：明亮高級座艙與連續導流槽
 ========================================= */
 .cell {
   position: absolute;
@@ -157,16 +157,20 @@ body {
 }
 
 .cell.path {
-  background: #8AB4F8;
+  background: var(--coreo-path);
+  box-shadow:
+    inset 0 0 0 1px rgba(200, 200, 208, 0.62),
+    0 0 16px rgba(0, 209, 255, 0.035);
 }
 
 .cell.wall {
-  background: linear-gradient(145deg, #FFFFFF 0%, #EEF2F6 100%);
+  background: linear-gradient(145deg, #FFFFFF 0%, #F8F8FA 58%, #EFEFF4 100%);
   border-radius: 14px;
   transform: translateZ(22px);
   box-shadow:
-    0 14px 28px rgba(40, 55, 75, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 16px 30px rgba(45, 55, 72, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(210, 210, 216, 0.42);
 }
 
 .cell.wall::after {
@@ -176,7 +180,7 @@ body {
   left: 0;
   width: 100%;
   height: 22px;
-  background: linear-gradient(180deg, var(--coreo-wall-side), #AEB8C4);
+  background: linear-gradient(180deg, var(--coreo-wall-side), #BFC1C8);
   transform-origin: top;
   transform: rotateX(-90deg);
   border-radius: 0 0 14px 14px;
@@ -188,7 +192,7 @@ body {
 }
 
 .cell.start {
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.42) 0 24%, transparent 25%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.44) 0 24%, transparent 25%);
 }
 
 .cell.start::before,
@@ -203,23 +207,23 @@ body {
 .cell.start::before {
   width: 30px;
   height: 30px;
-  border: 2px solid rgba(110, 115, 123, 0.36);
+  border: 2px solid rgba(110, 110, 115, 0.38);
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0.82);
-  box-shadow: inset 0 0 10px rgba(110, 115, 123, 0.12);
+  box-shadow: inset 0 0 10px rgba(110, 110, 115, 0.12);
 }
 
 .cell.start::after {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: rgba(110, 115, 123, 0.52);
+  background: rgba(110, 110, 115, 0.52);
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 8px rgba(110, 115, 123, 0.22);
+  box-shadow: 0 0 8px rgba(110, 110, 115, 0.22);
 }
 
 .cell.exit {
-  box-shadow: inset 0 0 24px rgba(0, 191, 255, 0.34);
+  box-shadow: inset 0 0 24px rgba(0, 209, 255, 0.26);
 }
 
 .cell.exit::before,
@@ -237,18 +241,18 @@ body {
   border: 2px solid var(--coreo-glow-core);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 16px rgba(0, 191, 255, 0.34);
+  box-shadow: 0 0 18px rgba(0, 209, 255, 0.36);
   animation: pulse-exit 2s infinite;
 }
 
 .cell.exit::after {
   width: 19px;
   height: 19px;
-  border: 2px solid #56D6A8;
+  border: 2px solid var(--coreo-success);
   border-left-color: transparent;
   border-bottom-color: transparent;
   transform: translate(-50%, -50%) rotate(45deg);
-  box-shadow: 6px -6px 14px rgba(86, 214, 168, 0.32);
+  box-shadow: 6px -6px 14px rgba(48, 209, 88, 0.28);
 }
 /* =========================================
    動態物件 (Player & Light Core)
@@ -262,7 +266,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  filter: drop-shadow(0 0 14px rgba(0, 191, 255, 0.8)) drop-shadow(0 0 30px rgba(0, 191, 255, 0.5));
+  filter: drop-shadow(0 0 12px rgba(0, 209, 255, 0.76)) drop-shadow(0 0 28px rgba(0, 209, 255, 0.40));
   transform-style: preserve-3d;
   z-index: 100;
   transition: top 0.07s linear, left 0.07s linear, transform 0.1s ease;
@@ -277,7 +281,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  filter: drop-shadow(0 0 16px rgba(255, 45, 45, 0.9)) drop-shadow(0 0 36px rgba(255, 90, 54, 0.6));
+  filter: drop-shadow(0 0 12px rgba(255, 59, 48, 0.74)) drop-shadow(0 0 28px rgba(255, 59, 48, 0.38));
   transform-style: preserve-3d;
   z-index: 96;
   pointer-events: none;
@@ -293,22 +297,23 @@ body {
 
 /* 等級 4: 一般能量 (冰藍小圓點) */
 .light-core-item.standard {
-  width: 12px;
-  height: 12px;
-  background: var(--coreo-glow-hot);
+  width: 14px;
+  height: 14px;
+  background: var(--coreo-credit);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--coreo-glow-hot), 0 0 24px var(--coreo-glow-core);
+  box-shadow: 0 0 13px rgba(229, 193, 88, 0.82), 0 0 26px rgba(229, 193, 88, 0.42);
   animation: float-core-std 2s ease-in-out infinite;
 }
 
 /* 等級 5: 強化能量 (香檳金大菱形，死路支線獎勵) */
 .light-core-item.upgraded {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   background: var(--coreo-credit-hot);
-  border-radius: 4px;
-  box-shadow: 0 0 16px var(--coreo-credit), 0 0 32px var(--coreo-credit-hot);
-  animation: float-core-upg 2s ease-in-out infinite;
+  border-radius: 6px;
+  transform: translate(-50%, -50%) translateZ(18px) rotate(45deg);
+  box-shadow: 0 0 16px rgba(229, 193, 88, 0.88), 0 0 34px rgba(229, 193, 88, 0.48);
+  animation: float-core-up 2s ease-in-out infinite;
 }
 
 @keyframes float-core-std {
@@ -434,6 +439,7 @@ body {
   margin: 12px 0;
   box-shadow: 0 0 12px var(--coreo-glow-core);
 }
+
 
 
 
