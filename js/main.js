@@ -14,6 +14,12 @@ window.addEventListener('DOMContentLoaded', () => {
   world.appendChild(playerDiv);
 
   const CELL_SIZE = Render3D.CELL_SIZE;
+  const enemyDiv = document.createElement('div');
+  enemyDiv.id = 'enemy';
+  enemyDiv.style.left = `${7 * CELL_SIZE + CELL_SIZE / 2}px`;
+  enemyDiv.style.top = `${10 * CELL_SIZE + CELL_SIZE / 2}px`;
+  enemyDiv.style.transform = `translate(-50%, -50%) translateZ(24px)`;
+  world.appendChild(enemyDiv);
   const PLAYER_RADIUS = 18; // 從 14 提升到 18，配合 48px 的實體尺寸，保持順滑移動
   const SPEED = 4.2;
   let isGameOver = false;
@@ -90,4 +96,5 @@ window.addEventListener('DOMContentLoaded', () => {
   updatePlayerDOM();
   requestAnimationFrame(gameLoop);
 });
+
 

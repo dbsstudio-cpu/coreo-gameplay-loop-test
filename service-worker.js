@@ -1,4 +1,4 @@
-﻿const COREO_CACHE = 'coreo-pwa-shell-v24-continuous-slot-20260708';
+﻿const COREO_CACHE = 'coreo-pwa-shell-v25-color-camera-maze-enemy-20260708';
 const COREO_ASSETS = [
   './',
   './index.html',
@@ -13,7 +13,8 @@ const COREO_ASSETS = [
   './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './assets/player.png'
+  './assets/player.png',
+  './assets/enemy.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -44,5 +45,6 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
   );
 });
+
 
 

@@ -16,7 +16,7 @@ const CameraLogic = {
 
     const worldHeight = this.worldDOM.offsetHeight || 0;
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-    const anchorY = viewportHeight * 0.70;
+    const anchorY = viewportHeight * 0.56;
     const unshiftedPlayerY = (viewportHeight * 0.5) - (worldHeight * 0.5) + playerWorldY;
 
     this.targetY = anchorY - unshiftedPlayerY;
@@ -25,3 +25,4 @@ const CameraLogic = {
     this.worldDOM.style.transform = `rotateX(40deg) translateZ(-165px) translateY(${this.currentY}px)`;
   }
 };
+

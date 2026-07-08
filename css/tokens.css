@@ -4,8 +4,8 @@
   --coreo-bg-base: #F4F6F8;
   --coreo-bg-secondary: #D9DEE5;
   --coreo-surface-raised: #FFFFFF;
-  --coreo-path: #DDE4EC;
-  --coreo-path-edge: #B7C1CD;
+  --coreo-path: #EAF1F4;
+  --coreo-path-edge: #C7D3DA;
   --coreo-wall-side: #C3CBD5;
   --coreo-text-primary: #1D1D1F;
   --coreo-text-secondary: #6E737B;
@@ -14,6 +14,11 @@
   --coreo-credit: #C9A45D;
   --coreo-credit-hot: #F0D89A;
   --coreo-danger: #FF3B30;
+  --coreo-enemy-red: #FF2D2D;
+  --coreo-enemy-red-orange: #FF5A36;
+  --coreo-danger-glow: #FFD2C7;
+  --coreo-threat-dark: #8A1020;
+  --coreo-special-violet: #6C5CE7;
 }
 
 * {
@@ -150,7 +155,7 @@ body {
   position: absolute;
   transform-style: preserve-3d;
   /* 深度特效：越靠近出口(y=0)越暗，越靠近起點(y=1)越亮 */
-  filter: brightness(calc(0.55 + 0.45 * var(--y-ratio, 1)));
+  filter: brightness(calc(0.78 + 0.22 * var(--y-ratio, 1)));
 }
 
 .cell.path {
@@ -167,7 +172,7 @@ body {
 .cell.path.corner::after {
   content: ''; position: absolute;
   top: 25%; left: 25%; right: 25%; bottom: 25%;
-  border: 1px solid rgba(183, 193, 205, 0.4);
+  border: 1px solid rgba(217, 184, 90, 0.55);
   border-radius: 6px;
 }
 
@@ -257,11 +262,11 @@ body {
 .cell.exit::after {
   width: 19px;
   height: 19px;
-  border: 2px solid var(--coreo-credit-hot);
+  border: 2px solid #56D6A8;
   border-left-color: transparent;
   border-bottom-color: transparent;
   transform: translate(-50%, -50%) rotate(45deg);
-  box-shadow: 6px -6px 14px rgba(240, 216, 154, 0.28);
+  box-shadow: 6px -6px 14px rgba(86, 214, 168, 0.32);
 }
 
 /* =========================================
@@ -282,6 +287,21 @@ body {
   transition: top 0.07s linear, left 0.07s linear, transform 0.1s ease;
 }
 
+
+#enemy {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-image: url('../assets/enemy.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 12px rgba(255, 45, 45, 0.72)) drop-shadow(0 0 26px rgba(255, 90, 54, 0.38));
+  transform-style: preserve-3d;
+  z-index: 96;
+  pointer-events: none;
+}
 .light-core-item {
   position: absolute;
   width: 16px;
@@ -404,4 +424,5 @@ body {
   margin: 12px 0;
   box-shadow: 0 0 12px var(--coreo-glow-core);
 }
+
 
