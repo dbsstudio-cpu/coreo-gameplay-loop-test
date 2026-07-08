@@ -1,4 +1,4 @@
-﻿const COREO_CACHE = 'coreo-pwa-shell-v25-color-camera-maze-enemy-20260708';
+﻿const COREO_CACHE = 'coreo-pwa-shell-v26-contrast-energy-tiers-20260708';
 const COREO_ASSETS = [
   './',
   './index.html',

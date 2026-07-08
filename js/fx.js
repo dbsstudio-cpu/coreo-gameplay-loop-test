@@ -44,6 +44,15 @@ const FX = {
       // Haptics
       if('vibrate' in navigator) navigator.vibrate([15, 30, 15]);
     };
+
+    // 觸發主角放大搖擺動畫
+    const playerDOM = document.getElementById('player');
+    if (playerDOM) {
+      // 移除再重加，確保連續吃到能量時動畫能重置觸發 (Trigger Reflow)
+      playerDOM.classList.remove('player-collect-anim');
+      void playerDOM.offsetWidth;
+      playerDOM.classList.add('player-collect-anim');
+    }
   },
 
   // 撞牆震動

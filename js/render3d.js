@@ -119,11 +119,11 @@ const Render3D = {
           this.createEntity(world, x, y, 'start');
         } else if (type === 3) {
           this.createEntity(world, x, y, 'exit');
-        } else if (type === 4) {
+        } else if (type === 4 || type === 5) {
           const core = document.createElement('div');
-          core.className = 'light-core-item';
+          // 依據類型賦予不同分級造型：4=一般能量、5=強化能量
+          core.className = type === 4 ? 'light-core-item standard' : 'light-core-item upgraded';
           core.id = `core-${x}-${y}`;
-          // 直接定位於中心
           core.style.left = `${x * this.CELL_SIZE + this.CELL_SIZE / 2}px`;
           core.style.top = `${y * this.CELL_SIZE + this.CELL_SIZE / 2}px`;
           world.appendChild(core);

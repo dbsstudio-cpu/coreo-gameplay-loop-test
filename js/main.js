@@ -16,11 +16,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const CELL_SIZE = Render3D.CELL_SIZE;
   const enemyDiv = document.createElement('div');
   enemyDiv.id = 'enemy';
-  enemyDiv.style.left = `${7 * CELL_SIZE + CELL_SIZE / 2}px`;
+  // 迷宮已退回 7 格寬，反派固定站在橫向大廳 D（col5, row10）內，避免超出地圖邊界
+  enemyDiv.style.left = `${5 * CELL_SIZE + CELL_SIZE / 2}px`;
   enemyDiv.style.top = `${10 * CELL_SIZE + CELL_SIZE / 2}px`;
   enemyDiv.style.transform = `translate(-50%, -50%) translateZ(24px)`;
   world.appendChild(enemyDiv);
-  const PLAYER_RADIUS = 18; // 從 14 提升到 18，配合 48px 的實體尺寸，保持順滑移動
+  const PLAYER_RADIUS = 24; // 從 18 提升到 24，配合 62px 的實體尺寸，保持順滑移動
   const SPEED = 4.2;
   let isGameOver = false;
 
@@ -49,8 +50,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const cy = Math.floor(playerPos.y / CELL_SIZE);
     const type = mazeData[cy][cx];
 
-    if (type === 4) {
-      mazeData[cy][cx] = 1; // 清空
+    if (type === 4 || type === 5) {
+      mazeData[cy][cx] = 1; // 清空（一般能量與強化能量都適用）
       const coreDOM = document.getElementById(`core-${cx}-${cy}`);
       if (coreDOM) FX.collectCore(coreDOM);
     }
